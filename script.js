@@ -78,6 +78,7 @@ randomCardArray.forEach((item) => {
   cardFront.classList.add("front");
   const cardBack = document.createElement("div");
   cardBack.classList.add("back");
+  cardBack.style.backgroundColor = item.color;
   innerCard.append(cardFront, cardBack);
   card.append(innerCard);
   cardContainer.append(card);
@@ -103,7 +104,7 @@ cardContainer.addEventListener("click", (e) => {
           clickedCards[1].childNodes[0].classList.add("hidden");
           clickedCards = [];
           matchCount++;
-          if (matchCount === 1 && totalTime > 0) {
+          if (matchCount === 6 && totalTime > 0) {
             losePopup.classList.add("hidden");
             popupContainer.classList.remove("popup-container");
           }

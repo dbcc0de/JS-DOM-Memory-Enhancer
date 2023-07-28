@@ -52,7 +52,7 @@ body {
 
 /* Style the back side */
 .back {
-  background-color: blue;
+  /* background-color: blue; */
   transform: rotateY(180deg);
 }
 
