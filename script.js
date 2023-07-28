@@ -2,6 +2,7 @@
 
 const cardContainer = document.querySelector("#card-container");
 const card = document.querySelector(".card");
+const popupContainer = document.querySelector(".popup-container");
 const cardArray = [
   {
     color: "red",
@@ -45,6 +46,7 @@ randomCardArray.forEach((item) => {
 // reference the assets in the array
 // look up shuffle methods for JS, (fisher yates?)
 let clickedCards = [];
+let matchCount = 0;
 cardContainer.addEventListener("click", (e) => {
   console.dir(e.target);
   if (e.target.classList.contains("front") && clickedCards.length < 2) {
@@ -59,18 +61,21 @@ cardContainer.addEventListener("click", (e) => {
           clickedCards[0].childNodes[0].classList.add("hidden");
           clickedCards[1].childNodes[0].classList.add("hidden");
           clickedCards = [];
-        }, 4000);
+          matchCount++;
+          if (matchCount === 6) {
+            popupContainer.classList.remove("popup-container");
+          }
+        }, 1000);
       } else {
         setTimeout(() => {
           clickedCards[0].childNodes[0].classList.remove("flip-card");
           clickedCards[1].childNodes[0].classList.remove("flip-card");
           clickedCards = [];
-        }, 4000);
+        }, 1000);
       }
     }
   }
 });
 
-// need only two cards shown at once, if they are match => (hide)
 // array of values/images that have properties to compare
 // empty array to push "clicked"

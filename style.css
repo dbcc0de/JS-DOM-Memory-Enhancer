@@ -60,6 +60,7 @@ body {
   transform: rotateY(180deg);
 }
 
-.hidden {
+.hidden,
+.popup-container {
   display: none;
 }
