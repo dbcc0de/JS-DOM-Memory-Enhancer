@@ -1,8 +1,49 @@
 "use strict";
 
+const startButton = document.querySelector("#start-button");
+const resetButton = document.querySelector("#reset-button");
+const losePopup = document.querySelector(".lose-popup");
+const winPopup = document.querySelector(".win-popup");
+const popupContainer = document.querySelector(".popup-container");
+startButton.addEventListener("click", (e) => {
+  startButton.classList.add("hidden");
+  const timerFunction = setInterval(() => {
+    if (totalTime === endTime) {
+      clearInterval(timerFunction);
+      popupContainer.classList.remove("popup-container");
+      winPopup.classList.add("hidden");
+    } else {
+      totalTime--;
+      timerCountDown.innerText = totalTime;
+      console.log(totalTime);
+    }
+  }, 1000);
+});
+
+resetButton.addEventListener("click", (e) => {
+  startButton.classList.remove("hidden");
+  // totalTime = 46;
+});
+
+const timerCountDown = document.querySelector("#count-down");
+const endTime = 0;
+let startSecs = 46;
+// scale up with minutes and seconds and convert
+let startMins = 0;
+let totalTime = startMins * 60 + startSecs;
+// const timerFunction = setInterval(() => {
+//   if (totalTime === endTime) {
+//     clearInterval(timerFunction);
+//   } else {
+//     totalTime--;
+//     timerCountDown.innerText = totalTime;
+//     console.log(totalTime);
+//   }
+// }, 1000);
+
 const cardContainer = document.querySelector("#card-container");
 const card = document.querySelector(".card");
-const popupContainer = document.querySelector(".popup-container");
+
 const cardArray = [
   {
     color: "red",
@@ -62,7 +103,8 @@ cardContainer.addEventListener("click", (e) => {
           clickedCards[1].childNodes[0].classList.add("hidden");
           clickedCards = [];
           matchCount++;
-          if (matchCount === 6) {
+          if (matchCount === 1 && totalTime > 0) {
+            losePopup.classList.add("hidden");
             popupContainer.classList.remove("popup-container");
           }
         }, 1000);
@@ -76,6 +118,8 @@ cardContainer.addEventListener("click", (e) => {
     }
   }
 });
+
+// have to add else if statement for if startTime or timer variable === 0 --> alert you lose (or unhide a you lose div)
 
 // array of values/images that have properties to compare
 // empty array to push "clicked"

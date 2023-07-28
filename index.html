@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1 id="timer">Timer</h1>
+      <h1 id="timer">Timer: <span id="count-down"></span></h1>
     </header>
     <main>
       <div id="card-container">
@@ -20,7 +20,14 @@
       <button id="start-button">Start</button>
       <button id="reset-button">Reset</button>
       <div class="popup-container">
-        <h2>YOU WIN!!!</h2>
+        <div class="win-popup">
+          <h2>YOU WIN!!!</h2>
+          <button>Increase the difficulty</button>
+        </div>
+        <div class="lose-popup">
+          <h2>YOU LOSE!!!</h2>
+          <button>Try again?</button>
+        </div>
       </div>
     </main>
     <script src="script.js"></script>
