@@ -45,7 +45,7 @@ let matchCount = 0;
 // start Button
 startButton.addEventListener("click", (e) => {
   startButton.classList.add("hidden");
-  createBoardFunction();
+  createBoardFunction(doubleCardArray);
   const timerFunction = setInterval(() => {
     if (totalTime === endTime) {
       clearInterval(timerFunction);
@@ -63,6 +63,7 @@ resetButton.addEventListener("click", (e) => {
   startButton.classList.remove("hidden");
   totalTime = 46;
   matchCount = 0;
+  clearInterval(timerFunction);
   const timerFunction = setInterval(() => {
     if (totalTime === endTime) {
       clearInterval(timerFunction);
@@ -74,16 +75,40 @@ resetButton.addEventListener("click", (e) => {
     }
   }, 1000);
   if (!cardContainer.firstChild) {
-    createBoardFunction();
+    createBoardFunction(doubleCardArray);
   } else {
-    cardContainer.removeChild(cardContainer.firstChild);
-    createBoardFunction();
+    cardContainer.innerHTML = "";
+    createBoardFunction(doubleCardArray);
+  }
+});
+
+const tryAgainButton = document.querySelector("#try-again-button");
+tryAgainButton.addEventListener("click", (e) => {
+  startButton.classList.remove("hidden");
+  totalTime = 46;
+  matchCount = 0;
+  const timerFunction = setInterval(() => {
+    if (totalTime === endTime) {
+      clearInterval(timerFunction);
+      popupContainer.classList.remove("popup-container");
+      winPopup.classList.add("hidden");
+    } else {
+      totalTime--;
+      timerCountDown.innerText = totalTime;
+      losePopup.classList.add("hidden");
+    }
+  }, 1000);
+  if (!cardContainer.firstChild) {
+    createBoardFunction(doubleCardArray);
+  } else {
+    cardContainer.innerHTML = "";
+    createBoardFunction(doubleCardArray);
   }
 });
 
 // Creats and Resets Board
-const createBoardFunction = () => {
-  const randomCardArray = doubleCardArray.sort((a, b) => 0.5 - Math.random());
+const createBoardFunction = (array) => {
+  const randomCardArray = array.sort((a, b) => 0.5 - Math.random());
   cardContainer.innerHTML = "";
   randomCardArray.forEach((item) => {
     const card = document.createElement("li");
@@ -143,3 +168,6 @@ cardContainer.addEventListener("click", (e) => {
     }
   }
 });
+
+// finish win screen
+// associate win button w/ creating more cards
