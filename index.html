@@ -17,19 +17,22 @@
         <!-- card back -->
         <!-- card front -->
       </div>
-      <button id="start-button">Start</button>
-      <button id="reset-button">Reset</button>
+      <div id="button-container">
+        <button id="start-button">Start</button>
+        <button id="reset-button">Reset</button>
+      </div>
       <div class="popup-container">
         <div class="win-popup">
           <h2>YOU WIN!!!</h2>
-          <button>Increase the difficulty</button>
+          <button class="again-button">Increase the difficulty</button>
         </div>
         <div class="lose-popup">
           <h2>YOU LOSE!!!</h2>
-          <button>Try again?</button>
+          <button class="again-button">Try again?</button>
         </div>
       </div>
     </main>
     <script src="script.js"></script>
   </body>
 </html>
+<!-- hardcode splash page in html. make js get rid of it on start -->

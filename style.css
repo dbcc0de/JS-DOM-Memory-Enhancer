@@ -1,12 +1,35 @@
 /* resets */
 body {
   margin: 0;
+  background-image: radial-gradient(#0eb1d2);
+  background-image: radial-gradient(
+    circle at center,
+    #b57edc,
+    #ffe5b4,
+    #d0f0c0
+  );
+}
+
+h1 {
+  text-align: center;
+}
+
+#button-container {
+  display: flex;
+  justify-content: center;
+}
+
+#start-button,
+#reset-button {
+  border-radius: 10px;
+  width: 20%;
 }
 
 #card-container {
   display: flex;
   list-style: none;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
 }
 
@@ -68,6 +91,22 @@ img {
 img {
   width: 100%;
   aspect-ratio: 1 / 1.7;
+  border-radius: 10px;
+}
+
+.lose-popup,
+.win-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 300px;
+  border: solid black 2px;
+  background-color: #ffe5b4;
+}
+
+.again-button {
+  position: relative;
   border-radius: 10px;
 }
 
