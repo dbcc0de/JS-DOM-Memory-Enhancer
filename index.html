@@ -11,11 +11,13 @@
       <h1 id="timer">Timer: <span id="count-down"></span></h1>
     </header>
     <main>
-      <div id="card-container">
-        <!-- card -->
-        <!-- card flip -->
-        <!-- card back -->
-        <!-- card front -->
+      <div id="card-container-container">
+        <ul id="card-container">
+          <!-- card -->
+          <!-- card flip -->
+          <!-- card back -->
+          <!-- card front -->
+        </ul>
       </div>
       <div id="button-container">
         <button id="start-button">Start</button>
@@ -24,11 +26,13 @@
       <div class="popup-container">
         <div class="win-popup">
           <h2>YOU WIN!!!</h2>
-          <button class="again-button">Increase the difficulty</button>
+          <button id="increase-difficulty-button">
+            Increase the difficulty
+          </button>
         </div>
         <div class="lose-popup">
           <h2>YOU LOSE!!!</h2>
-          <button class="again-button">Try again?</button>
+          <button id="try-again-button">Try again?</button>
         </div>
       </div>
     </main>
