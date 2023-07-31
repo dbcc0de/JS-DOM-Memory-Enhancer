@@ -15,22 +15,27 @@ let totalTime = startMins * 60 + startSecs;
 const cardArray = [
   {
     color: "red",
-    // image: "/img/relPath",
+    image: "assets/goku.png",
   },
   {
     color: "green",
+    image: "assets/vegeta.webp",
   },
   {
     color: "yellow",
+    image: "assets/piccolo.webp",
   },
   {
     color: "orange",
+    image: "assets/krillin.webp",
   },
   {
     color: "purple",
+    image: "assets/buu.webp",
   },
   {
     color: "pink",
+    image: "assets/frieza.webp",
   },
 ];
 const doubleCardArray = cardArray.concat(cardArray);
@@ -57,6 +62,7 @@ startButton.addEventListener("click", (e) => {
 resetButton.addEventListener("click", (e) => {
   startButton.classList.remove("hidden");
   totalTime = 46;
+  matchCount = 0;
   if (!cardContainer.firstChild) {
     createBoardFunction();
   } else {
@@ -72,15 +78,18 @@ const createBoardFunction = () => {
   randomCardArray.forEach((item) => {
     const card = document.createElement("li");
     card.classList.add("card");
-    card.setAttribute("data-color", item.color);
-    console.log(card);
     const innerCard = document.createElement("div");
     innerCard.classList.add("inner-card");
     const cardFront = document.createElement("div");
+    const frontImage = document.createElement("img");
+    frontImage.setAttribute("src", "assets/dbztheme.jpg");
+    cardFront.append(frontImage);
     cardFront.classList.add("front");
+    const backImage = document.createElement("img");
     const cardBack = document.createElement("div");
+    backImage.setAttribute("src", item.image);
+    cardBack.append(backImage);
     cardBack.classList.add("back");
-    cardBack.style.backgroundColor = item.color;
     innerCard.append(cardFront, cardBack);
     card.append(innerCard);
     cardContainer.append(card);
@@ -90,13 +99,16 @@ const createBoardFunction = () => {
 // flip, match, and hide function on click
 cardContainer.addEventListener("click", (e) => {
   console.dir(e.target);
-  if (e.target.classList.contains("front") && clickedCards.length < 2) {
-    e.target.parentNode.classList.add("flip-card");
-    clickedCards.push(e.target.parentNode.parentNode);
+  if (
+    e.target.parentElement.classList.contains("front") &&
+    clickedCards.length < 2
+  ) {
+    e.target.parentNode.parentNode.classList.add("flip-card");
+    clickedCards.push(e.target.parentNode.parentNode.parentNode);
     if (clickedCards.length === 2) {
       if (
-        clickedCards[0].getAttribute("data-color") ===
-        clickedCards[1].getAttribute("data-color")
+        clickedCards[0].getAttribute("src") ===
+        clickedCards[1].getAttribute("src")
       ) {
         setTimeout(() => {
           clickedCards[0].childNodes[0].classList.add("hidden");

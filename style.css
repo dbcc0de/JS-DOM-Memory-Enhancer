@@ -46,20 +46,27 @@ body {
 }
 
 /* Style the front side (fallback if image is missing) */
-.front {
+/* .front {
   background-color: black;
-}
+} */
 
 /* Style the back side */
 .back {
   transform: rotateY(180deg);
 }
 
-.flip-card {
+.flip-card,
+img {
   transform: rotateY(180deg);
 }
 
 .hidden,
 .popup-container {
   display: none;
+}
+
+img {
+  width: 100%;
+  aspect-ratio: 1 / 1.7;
+  border-radius: 10px;
 }
