@@ -63,6 +63,16 @@ resetButton.addEventListener("click", (e) => {
   startButton.classList.remove("hidden");
   totalTime = 46;
   matchCount = 0;
+  const timerFunction = setInterval(() => {
+    if (totalTime === endTime) {
+      clearInterval(timerFunction);
+      popupContainer.classList.remove("popup-container");
+      winPopup.classList.add("hidden");
+    } else {
+      totalTime--;
+      timerCountDown.innerText = totalTime;
+    }
+  }, 1000);
   if (!cardContainer.firstChild) {
     createBoardFunction();
   } else {
@@ -106,9 +116,12 @@ cardContainer.addEventListener("click", (e) => {
     e.target.parentNode.parentNode.classList.add("flip-card");
     clickedCards.push(e.target.parentNode.parentNode.parentNode);
     if (clickedCards.length === 2) {
+      console.log(
+        clickedCards[0].childNodes[0].childNodes[1].childNodes[0].src
+      );
       if (
-        clickedCards[0].getAttribute("src") ===
-        clickedCards[1].getAttribute("src")
+        clickedCards[0].childNodes[0].childNodes[1].childNodes[0].src ===
+        clickedCards[1].childNodes[0].childNodes[1].childNodes[0].src
       ) {
         setTimeout(() => {
           clickedCards[0].childNodes[0].classList.add("hidden");
