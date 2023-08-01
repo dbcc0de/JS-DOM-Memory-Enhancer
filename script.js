@@ -10,8 +10,10 @@ const card = document.querySelector(".card");
 const timerText = document.querySelector("#timer");
 const timerCountDown = document.querySelector("#count-down");
 const tryAgainButton = document.querySelector(".try-again-button");
+const splashScreen = document.querySelector("#splash-screen");
+let timerFunction = null;
 const endTime = 0;
-let startSecs = 2;
+let startSecs = 46;
 let startMins = 0;
 let totalTime = startMins * 60 + startSecs;
 const cardArray = [
@@ -49,10 +51,11 @@ timerText.classList.add("hidden");
 // start Button
 startButton.addEventListener("click", (e) => {
   startButton.classList.add("hidden");
+  splashScreen.classList.add("hidden");
   resetButton.classList.remove("hidden");
   timerText.classList.remove("hidden");
   createBoardFunction(doubleCardArray);
-  const timerFunction = setInterval(() => {
+  timerFunction = setInterval(() => {
     if (totalTime === endTime) {
       clearInterval(timerFunction);
       popupContainer.classList.remove("popup-container");
@@ -73,7 +76,7 @@ resetButton.addEventListener("click", (e) => {
   totalTime = 46;
   matchCount = 0;
   clearInterval(timerFunction);
-  const timerFunction = setInterval(() => {
+  timerFunction = setInterval(() => {
     if (totalTime === endTime) {
       clearInterval(timerFunction);
       popupContainer.classList.remove("popup-container");
@@ -91,29 +94,6 @@ resetButton.addEventListener("click", (e) => {
     createBoardFunction(doubleCardArray);
   }
 });
-
-// tryAgainButton.addEventListener("click", (e) => {
-//   startButton.classList.add("hidden");
-//   totalTime = 46;
-//   matchCount = 0;
-//   const timerFunction = setInterval(() => {
-//     if (totalTime === endTime) {
-//       clearInterval(timerFunction);
-//       popupContainer.classList.remove("popup-container");
-//       winPopup.classList.add("hidden");
-//     } else {
-//       totalTime--;
-//       timerCountDown.innerText = totalTime;
-//       losePopup.classList.add("hidden");
-//     }
-//   }, 1000);
-//   if (!cardContainer.firstChild) {
-//     createBoardFunction(doubleCardArray);
-//   } else {
-//     cardContainer.innerHTML = "";
-//     createBoardFunction(doubleCardArray);
-//   }
-// });
 
 // Creats and Resets Board
 const createBoardFunction = (array) => {
@@ -162,7 +142,7 @@ cardContainer.addEventListener("click", (e) => {
           clickedCards[1].childNodes[0].classList.add("hidden");
           clickedCards = [];
           matchCount++;
-          if (matchCount === 1 && totalTime > 0) {
+          if (matchCount === 6 && totalTime > 0) {
             losePopup.classList.add("hidden");
             popupContainer.classList.remove("popup-container");
             winPopup.classList.remove("hidden");
@@ -170,6 +150,9 @@ cardContainer.addEventListener("click", (e) => {
             timerText.classList.add("hidden");
           }
         }, 1000);
+        if (matchCount === 6 && totalTime > 0) {
+          clearInterval(timerFunction);
+        }
       } else {
         setTimeout(() => {
           clickedCards[0].childNodes[0].classList.remove("flip-card");
@@ -181,7 +164,6 @@ cardContainer.addEventListener("click", (e) => {
   }
 });
 
-let timerFunction = null;
 // Try Again button functionality
 popupContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("try-again-button")) {
@@ -193,7 +175,7 @@ popupContainer.addEventListener("click", (e) => {
     timerText.classList.remove("hidden");
     totalTime = 46;
     matchCount = 0;
-    if (timerFunction) {
+    if (timerFunction !== null) {
       clearInterval(timerFunction);
     }
     timerFunction = setInterval(() => {
@@ -216,7 +198,3 @@ popupContainer.addEventListener("click", (e) => {
     }
   }
 });
-
-// finish win screen
-// associate win button w/ creating more cards
-// broken try again on win -- speeds up count
