@@ -3,21 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Memory Enhancer</title>
   </head>
   <body>
     <header>
       <h1 id="timer">Timer: <span id="count-down"></span></h1>
+      <div id="splash-screen">
+        <div id="title">Memory Ball Z</div>
+        <div id="image-container">
+          <img src="assets/goku-gif.gif" alt="splash-page" />
+        </div>
+        <p>
+          A Planet Busting Memory Match Game.<br />
+          Developed & Designed By The Strongest Duo In The Universe... The SUPER
+          SCRIPTERS!!!
+        </p>
+      </div>
     </header>
     <main>
       <div id="card-container-container">
-        <ul id="card-container">
-          <!-- card -->
-          <!-- card flip -->
-          <!-- card back -->
-          <!-- card front -->
-        </ul>
+        <ul id="card-container"></ul>
       </div>
       <div id="button-container">
         <button id="start-button">Start</button>
@@ -26,9 +38,6 @@
       <div class="popup-container">
         <div class="win-popup">
           <h2>YOU WIN!!!</h2>
-          <!-- <button id="increase-difficulty-button">
-            Increase the difficulty
-          </button> -->
           <button class="try-again-button">Try again?</button>
         </div>
         <div class="lose-popup">
@@ -40,4 +49,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-<!-- hardcode splash page in html. make js get rid of it on start -->
