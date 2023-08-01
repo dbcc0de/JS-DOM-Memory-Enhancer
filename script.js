@@ -7,7 +7,9 @@ const winPopup = document.querySelector(".win-popup");
 const popupContainer = document.querySelector(".popup-container");
 const cardContainer = document.querySelector("#card-container");
 const card = document.querySelector(".card");
+const timerText = document.querySelector("#timer");
 const timerCountDown = document.querySelector("#count-down");
+const tryAgainButton = document.querySelector(".try-again-button");
 const endTime = 0;
 let startSecs = 2;
 let startMins = 0;
@@ -41,16 +43,21 @@ const cardArray = [
 const doubleCardArray = cardArray.concat(cardArray);
 let clickedCards = [];
 let matchCount = 0;
+resetButton.classList.add("hidden");
+timerText.classList.add("hidden");
 
 // start Button
 startButton.addEventListener("click", (e) => {
   startButton.classList.add("hidden");
+  resetButton.classList.remove("hidden");
+  timerText.classList.remove("hidden");
   createBoardFunction(doubleCardArray);
   const timerFunction = setInterval(() => {
     if (totalTime === endTime) {
       clearInterval(timerFunction);
       popupContainer.classList.remove("popup-container");
       winPopup.classList.add("hidden");
+      losePopup.classList.remove("hidden");
     } else {
       totalTime--;
       timerCountDown.innerText = totalTime;
@@ -60,7 +67,9 @@ startButton.addEventListener("click", (e) => {
 
 // reset button
 resetButton.addEventListener("click", (e) => {
-  startButton.classList.remove("hidden");
+  createBoardFunction(doubleCardArray);
+  timerCountDown.classList.remove("hidden");
+  timerText.classList.remove("hidden");
   totalTime = 46;
   matchCount = 0;
   clearInterval(timerFunction);
@@ -69,6 +78,7 @@ resetButton.addEventListener("click", (e) => {
       clearInterval(timerFunction);
       popupContainer.classList.remove("popup-container");
       winPopup.classList.add("hidden");
+      losePopup.classList.remove("hidden");
     } else {
       totalTime--;
       timerCountDown.innerText = totalTime;
@@ -82,29 +92,28 @@ resetButton.addEventListener("click", (e) => {
   }
 });
 
-const tryAgainButton = document.querySelector("#try-again-button");
-tryAgainButton.addEventListener("click", (e) => {
-  startButton.classList.remove("hidden");
-  totalTime = 46;
-  matchCount = 0;
-  const timerFunction = setInterval(() => {
-    if (totalTime === endTime) {
-      clearInterval(timerFunction);
-      popupContainer.classList.remove("popup-container");
-      winPopup.classList.add("hidden");
-    } else {
-      totalTime--;
-      timerCountDown.innerText = totalTime;
-      losePopup.classList.add("hidden");
-    }
-  }, 1000);
-  if (!cardContainer.firstChild) {
-    createBoardFunction(doubleCardArray);
-  } else {
-    cardContainer.innerHTML = "";
-    createBoardFunction(doubleCardArray);
-  }
-});
+// tryAgainButton.addEventListener("click", (e) => {
+//   startButton.classList.add("hidden");
+//   totalTime = 46;
+//   matchCount = 0;
+//   const timerFunction = setInterval(() => {
+//     if (totalTime === endTime) {
+//       clearInterval(timerFunction);
+//       popupContainer.classList.remove("popup-container");
+//       winPopup.classList.add("hidden");
+//     } else {
+//       totalTime--;
+//       timerCountDown.innerText = totalTime;
+//       losePopup.classList.add("hidden");
+//     }
+//   }, 1000);
+//   if (!cardContainer.firstChild) {
+//     createBoardFunction(doubleCardArray);
+//   } else {
+//     cardContainer.innerHTML = "";
+//     createBoardFunction(doubleCardArray);
+//   }
+// });
 
 // Creats and Resets Board
 const createBoardFunction = (array) => {
@@ -153,9 +162,12 @@ cardContainer.addEventListener("click", (e) => {
           clickedCards[1].childNodes[0].classList.add("hidden");
           clickedCards = [];
           matchCount++;
-          if (matchCount === 6 && totalTime > 0) {
+          if (matchCount === 1 && totalTime > 0) {
             losePopup.classList.add("hidden");
             popupContainer.classList.remove("popup-container");
+            winPopup.classList.remove("hidden");
+            timerCountDown.classList.add("hidden");
+            timerText.classList.add("hidden");
           }
         }, 1000);
       } else {
@@ -169,5 +181,42 @@ cardContainer.addEventListener("click", (e) => {
   }
 });
 
+let timerFunction = null;
+// Try Again button functionality
+popupContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("try-again-button")) {
+    createBoardFunction(doubleCardArray);
+    losePopup.classList.add("hidden");
+    startButton.classList.add("hidden");
+    winPopup.classList.add("hidden");
+    timerCountDown.classList.remove("hidden");
+    timerText.classList.remove("hidden");
+    totalTime = 46;
+    matchCount = 0;
+    if (timerFunction) {
+      clearInterval(timerFunction);
+    }
+    timerFunction = setInterval(() => {
+      if (totalTime === endTime) {
+        popupContainer.classList.remove("popup-container");
+        winPopup.classList.add("hidden");
+        losePopup.classList.remove("hidden");
+        clearInterval(timerFunction);
+      } else {
+        totalTime--;
+        timerCountDown.innerText = totalTime;
+        losePopup.classList.add("hidden");
+      }
+    }, 1000);
+    if (!cardContainer.firstChild) {
+      createBoardFunction(doubleCardArray);
+    } else {
+      cardContainer.innerHTML = "";
+      createBoardFunction(doubleCardArray);
+    }
+  }
+});
+
 // finish win screen
 // associate win button w/ creating more cards
+// broken try again on win -- speeds up count
